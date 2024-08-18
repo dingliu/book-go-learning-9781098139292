@@ -111,6 +111,20 @@ func evenMoreConfusingSliceAppend() {
 	fmt.Println("z: ", z) // z: [i, j, y]
 }
 
+func fullSliceExpressions() {
+	x := make([]string, 0, 5)
+	x = append(x, "a", "b", "c", "d")
+	y := x[:2:2]
+	z := x[2:4:4]
+	fmt.Println(cap(x), cap(y), cap(z)) // 5 2 2
+	y = append(y, "i", "j", "k")
+	x = append(x, "x")
+	z = append(z, "y")
+	fmt.Println("x: ", x) // x: [a, b, c, d, x]
+	fmt.Println("y: ", y) // y: [a, b, i, j, k] (created a new slice in memory)
+	fmt.Println("z: ", z) // z: [c, d, y] (created a new slice in memory)
+}
+
 func main() {
 	compareArrays()
 	zeroSliceIsNil()
@@ -123,4 +137,5 @@ func main() {
 	slicesOverlapMemory()
 	confusingSliceAppend()
 	evenMoreConfusingSliceAppend()
+	fullSliceExpressions()
 }
