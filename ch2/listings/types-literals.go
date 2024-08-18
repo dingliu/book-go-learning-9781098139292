@@ -24,6 +24,7 @@ func main() {
 
 	untypedLiterals()
 	varDeclareWithinFunc()
+	constExample()
 }
 
 func untypedLiterals() {
