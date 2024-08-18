@@ -76,6 +76,41 @@ func slicingSlices() {
 	fmt.Println("e: ", e)
 }
 
+func slicesOverlapMemory() {
+	x := []string{"a", "b", "c", "d"}
+	y := x[:2]
+	z := x[1:]
+	x[1] = "y"
+	y[0] = "x"
+	z[1] = "z"
+	fmt.Println("x: ", x) // x:  [x y z d]
+	fmt.Println("y: ", y) // y:  [x y]
+	fmt.Println("z: ", z) // z:  [y z d]
+}
+
+func confusingSliceAppend() {
+	x := []string{"a", "b", "c", "d"}
+	y := x[:2]
+	fmt.Println(cap(x), cap(y)) // 4 4
+	y = append(y, "z")
+	fmt.Println("x: ", x) // x:  [a b z d]
+	fmt.Println("y: ", y) // y:  [a b z]
+}
+
+func evenMoreConfusingSliceAppend() {
+	x := make([]string, 0, 5)
+	x = append(x, "a", "b", "c", "d")
+	y := x[:2]
+	z := x[2:]
+	fmt.Println(cap(x), cap(y), cap(z)) // 5 5 3
+	y = append(y, "i", "j", "k")
+	x = append(x, "x")
+	z = append(z, "y")
+	fmt.Println("x: ", x) // x: [a, b, i, j, y]
+	fmt.Println("y: ", y) // y: [a, b, i, j, y]
+	fmt.Println("z: ", z) // z: [i, j, y]
+}
+
 func main() {
 	compareArrays()
 	zeroSliceIsNil()
@@ -85,4 +120,7 @@ func main() {
 	makeSlices()
 	clearSlice()
 	slicingSlices()
+	slicesOverlapMemory()
+	confusingSliceAppend()
+	evenMoreConfusingSliceAppend()
 }
