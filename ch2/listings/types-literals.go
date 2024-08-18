@@ -13,4 +13,11 @@ func main() {
 	var sum3 int = x + int(b)
 	var sum4 byte = byte(x) + b
 	fmt.Println(sum3, sum4)
+	untypedLiterals()
+}
+
+func untypedLiterals() {
+	var x float64 = 10
+	var y float64 = 200.3 * 5
+	fmt.Println(x, y)
 }
