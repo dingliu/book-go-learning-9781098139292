@@ -125,6 +125,56 @@ func fullSliceExpressions() {
 	fmt.Println("z: ", z) // z: [c, d, y] (created a new slice in memory)
 }
 
+func convertSliceToPointerToArray() {
+	xSlice := []int{1, 2, 3, 4}
+	xArrayPointer := (*[4]int)(xSlice)
+
+	xSlice[0] = 10
+	xArrayPointer[1] = 20
+	fmt.Println(xSlice)        // [10, 20, 3, 4]
+	fmt.Println(xArrayPointer) // &[10, 20, 3, 4]
+}
+
+func extraAndSliceStrings() {
+	var s string = "Hello there"
+	var b byte = s[6]
+	fmt.Println(b) // 116
+	var s2 string = s[4:7]
+	var s3 string = s[:5]
+	var s4 string = s[6:]
+	fmt.Println(s2) // o t
+	fmt.Println(s3) // Hello
+	fmt.Println(s4) // there
+}
+
+func sliceStringWithEmoji() {
+	var s string = "Hello 🌞"
+	var s2 string = s[4:7]
+	var s3 string = s[:5]
+	var s4 string = s[6:]
+	fmt.Println(s2)     // o �
+	fmt.Println(s3)     // Hello
+	fmt.Println(s4)     // 🌞
+	fmt.Println(len(s)) // 10
+}
+
+func convertIntToString() {
+	var x int = 65
+	var s string = string(x)
+	fmt.Println(s)
+}
+
+// ./composite_types.go:163:17: conversion from int to string yields a
+// string of one rune, not a string of digits (did you mean fmt.Sprint(x)?)
+
+func convertStringToSlices() {
+	var s string = "Hello 🌞"
+	var bs []byte = []byte(s)
+	var rs []rune = []rune(s)
+	fmt.Println(bs) // [72 101 108 108 111 32 240 159 140 158]
+	fmt.Println(rs) // [72 101 108 108 111 32 127774]
+}
+
 func main() {
 	compareArrays()
 	zeroSliceIsNil()
@@ -138,4 +188,9 @@ func main() {
 	confusingSliceAppend()
 	evenMoreConfusingSliceAppend()
 	fullSliceExpressions()
+	convertSliceToPointerToArray()
+	extraAndSliceStrings()
+	sliceStringWithEmoji()
+	convertIntToString()
+	convertStringToSlices()
 }
