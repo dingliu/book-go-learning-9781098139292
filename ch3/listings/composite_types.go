@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"maps"
 	"slices"
 )
 
@@ -175,6 +176,81 @@ func convertStringToSlices() {
 	fmt.Println(rs) // [72 101 108 108 111 32 127774]
 }
 
+func declareMaps() {
+	var nilMap map[string]int
+	totalWins := map[string]int{}
+	teams := map[string][]string{
+		"Orcas":   []string{"John", "Jane"},
+		"Lions":   []string{"Sarah", "Peter"},
+		"Kittens": []string{"Waldo", "Raul"},
+	}
+	fmt.Println(nilMap)
+	fmt.Println(totalWins)
+	fmt.Println(teams)
+}
+
+func makeMap() {
+	ages := make(map[int][]string, 10)
+	fmt.Println(len(ages)) // 0
+}
+
+func commaOkIdiom() {
+	m := map[string]int{
+		"hello": 5,
+		"world": 0,
+	}
+
+	v, ok := m["hello"]
+	fmt.Println(v, ok) // 5 true
+
+	v, ok = m["world"]
+	fmt.Println(v, ok) // 0 true
+
+	v, ok = m["goodbye"]
+	fmt.Println(v, ok) // 0 false
+}
+
+func deleteAndClearMap() {
+	m := map[string]int{
+		"hello": 5,
+		"world": 0,
+	}
+
+	delete(m, "hello")
+	fmt.Println(m) // map[world:0]
+	clear(m)
+	fmt.Println(m) // map[]
+}
+
+func compareMapEquality() {
+	m1 := map[string]int{
+		"hello": 5,
+		"world": 0,
+	}
+
+	m2 := map[string]int{
+		"hello": 5,
+		"world": 0,
+	}
+
+	fmt.Println(maps.Equal(m1, m2)) // true
+}
+
+func asSet() {
+	intSet := map[int]bool{}
+	values := []int{5, 10, 2, 5, 8, 7, 3, 9, 1, 2, 10}
+
+	for _, v := range values {
+		intSet[v] = true
+	}
+	fmt.Println(len(values), len(intSet))
+	fmt.Println(intSet[5])
+	fmt.Println(intSet[500])
+	if intSet[100] {
+		fmt.Println("100 is in the set")
+	}
+}
+
 func main() {
 	compareArrays()
 	zeroSliceIsNil()
@@ -193,4 +269,10 @@ func main() {
 	sliceStringWithEmoji()
 	convertIntToString()
 	convertStringToSlices()
+	declareMaps()
+	makeMap()
+	commaOkIdiom()
+	deleteAndClearMap()
+	compareMapEquality()
+	asSet()
 }
