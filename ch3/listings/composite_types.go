@@ -266,6 +266,15 @@ func declareStruct() {
 		"Sparky",
 	}
 
+	pet := struct {
+		name string
+		kind string
+	}{
+		name: "Fido",
+		kind: "dog",
+	}
+	fmt.Println(pet)
+
 	jim = person{
 		age:  32,
 		name: "Jim",
