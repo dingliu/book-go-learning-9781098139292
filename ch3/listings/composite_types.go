@@ -251,6 +251,30 @@ func asSet() {
 	}
 }
 
+func declareStruct() {
+	type person struct {
+		name string
+		age  int
+		pet  string
+	}
+	var bob person
+	jim := person{}
+
+	bob = person{
+		"Bob",
+		21,
+		"Sparky",
+	}
+
+	jim = person{
+		age:  32,
+		name: "Jim",
+	}
+
+	jim.name = "James"
+	fmt.Println(bob.name, "'s age is: ", bob.age)
+}
+
 func main() {
 	compareArrays()
 	zeroSliceIsNil()
@@ -275,4 +299,5 @@ func main() {
 	deleteAndClearMap()
 	compareMapEquality()
 	asSet()
+	declareStruct()
 }
