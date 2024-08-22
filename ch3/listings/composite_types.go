@@ -284,6 +284,25 @@ func declareStruct() {
 	fmt.Println(bob.name, "'s age is: ", bob.age)
 }
 
+func convertStruct() {
+	type firstPerson struct {
+		name string
+		age  int
+	}
+	type secondPerson struct {
+		name string
+		age  int
+	}
+
+	tom := firstPerson{
+		name: "tom",
+		age:  12,
+	}
+	secondTom := secondPerson(tom)
+
+	fmt.Println(secondTom) // {tom 12}
+}
+
 func main() {
 	compareArrays()
 	zeroSliceIsNil()
@@ -309,4 +328,5 @@ func main() {
 	compareMapEquality()
 	asSet()
 	declareStruct()
+	convertStruct()
 }
