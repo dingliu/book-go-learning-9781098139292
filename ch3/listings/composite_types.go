@@ -273,7 +273,7 @@ func declareStruct() {
 		name: "Fido",
 		kind: "dog",
 	}
-	fmt.Println(pet)
+	fmt.Println(pet) // {Fido dog}
 
 	jim = person{
 		age:  32,
