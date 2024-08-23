@@ -7,16 +7,16 @@ func grettingSlices() {
 	first := greetings[:2]
 	second := greetings[1:4]
 	third := greetings[4:]
-	fmt.Println(first)
-	fmt.Println(second)
-	fmt.Println(third)
-	fmt.Println(greetings)
+	fmt.Println(first)     // [Hello Hola]
+	fmt.Println(second)    // [Hola नमस्कार こんにちは]
+	fmt.Println(third)     // [Привіт]
+	fmt.Println(greetings) // [Hello Hola नमस्कार こんにちは Привіт]
 }
 
 func fourthRuneInSlice() {
 	message := "Hi 👩 and 👨"
 	var rs []rune = []rune(message)
-	fmt.Println(string(rs[3]))
+	fmt.Println(string(rs[3])) // 👩
 }
 
 func employeeStruct() {
@@ -41,9 +41,9 @@ func employeeStruct() {
 	c.lastName = "Smith"
 	c.id = 3
 
-	fmt.Println(a)
-	fmt.Println(b)
-	fmt.Println(c)
+	fmt.Println(a) // {John Doe 1}
+	fmt.Println(b) // {Jane Doe 2}
+	fmt.Println(c) // {Bob Smith 3}
 }
 
 func main() {
