@@ -303,6 +303,25 @@ func convertStruct() {
 	fmt.Println(secondTom) // {tom 12}
 }
 
+func compareAnonymousStruct() {
+	type firstPerson struct {
+		name string
+		age  int
+	}
+	f := firstPerson{
+		name: "Bob",
+		age:  55,
+	}
+
+	var g struct {
+		name string
+		age  int
+	}
+	g = f
+
+	fmt.Println(f == g) // true
+}
+
 func main() {
 	compareArrays()
 	zeroSliceIsNil()
@@ -329,4 +348,5 @@ func main() {
 	asSet()
 	declareStruct()
 	convertStruct()
+	compareAnonymousStruct()
 }
