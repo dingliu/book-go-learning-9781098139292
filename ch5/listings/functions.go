@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log/slog"
 	"os"
+	"sort"
 )
 
 func div(num int, denom int) int {
@@ -65,6 +66,46 @@ func demoAnonymousFunc() {
 	}(99)
 }
 
+func closureDemo() {
+	i := 0
+	f := func() {
+		fmt.Println(i)
+		i++
+	}
+	f()
+	fmt.Println("in closureDemo, i is", i)
+}
+
+func sortingSlice() {
+	type person struct {
+		FirstName string
+		LastName  string
+		Age       int
+	}
+	people := []person{
+		{"Pat", "Paterson", 30},
+		{"Joe", "Doe", 80},
+		{"Jane", "Doe", 70},
+	}
+	fmt.Println("before sorting:", people)
+
+	sort.Slice(people, func(i, j int) bool {
+		return people[i].LastName < people[j].LastName
+	})
+	fmt.Println("after sorting by last name:", people)
+
+	sort.Slice(people, func(i, j int) bool {
+		return people[i].Age < people[j].Age
+	})
+	fmt.Println("after sorting by Age:", people)
+}
+
+func makeMultiplier(factor int) func(int) int {
+	return func(val int) int {
+		return factor * val
+	}
+}
+
 func main() {
 	slog.Info("demonstrating functions")
 	fmt.Println(div(4, 2))
@@ -121,4 +162,16 @@ func main() {
 
 	slog.Info("demonstrating anonymous functions")
 	demoAnonymousFunc()
+
+	slog.Info("demonstrating closures")
+	closureDemo()
+
+	slog.Info("demonstrating sorting with anonymous functions")
+	sortingSlice()
+
+	slog.Info("demonstrating function factories")
+	times2 := makeMultiplier(2)
+	times3 := makeMultiplier(3)
+	fmt.Println("3 times 2 is", times2(3))
+	fmt.Println("4 times 3 is", times3(4))
 }
