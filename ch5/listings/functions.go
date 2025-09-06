@@ -106,6 +106,19 @@ func makeMultiplier(factor int) func(int) int {
 	}
 }
 
+func modMap(m map[int]string) {
+	m[2] = "hello"
+	m[3] = "goodbye"
+	delete(m, 1)
+}
+
+func modSlice(s []int) {
+	for k, v := range s {
+		s[k] = v * 2
+	}
+	s = append(s, 10)
+}
+
 func main() {
 	slog.Info("demonstrating functions")
 	fmt.Println(div(4, 2))
@@ -174,4 +187,14 @@ func main() {
 	times3 := makeMultiplier(3)
 	fmt.Println("3 times 2 is", times2(3))
 	fmt.Println("4 times 3 is", times3(4))
+
+	m := map[int]string{
+		1: "first",
+		2: "second",
+	}
+	modMap(m)
+	fmt.Println(m)
+	s := []int{1, 2, 3}
+	modSlice(s)
+	fmt.Println(s)
 }
