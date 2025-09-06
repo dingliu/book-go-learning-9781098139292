@@ -50,6 +50,13 @@ func fileLen(filename string) (int, error) {
 	return size, nil
 }
 
+// exercise 3
+func prefixer(prefix string) func(string) string {
+	return func(s string) string {
+		return prefix + " " + s
+	}
+}
+
 func main() {
 	expressions := [][]string{
 		{"2", "+", "3"},
@@ -86,4 +93,8 @@ func main() {
 		fmt.Println(err)
 	}
 	fmt.Println(fileSize)
+
+	helloPrefixer := prefixer("hello")
+	fmt.Println(helloPrefixer("Bob"))
+	fmt.Println(helloPrefixer("Maria"))
 }
