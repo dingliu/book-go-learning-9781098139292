@@ -3,6 +3,9 @@ package main
 import (
 	"errors"
 	"fmt"
+	"io"
+	"log/slog"
+	"os"
 	"strconv"
 )
 
@@ -23,6 +26,28 @@ var opMap = map[string]func(int, int) (int, error){
 	"-": sub,
 	"*": mul,
 	"/": div,
+}
+
+// exercise 2
+func fileLen(filename string) (int, error) {
+	f, err := os.Open(filename)
+	if err != nil {
+		return 0, err
+	}
+	size := 0
+	data := make([]byte, 100)
+	for {
+		n, err := f.Read(data)
+		size += n
+		if err != nil {
+			if err == io.EOF {
+				slog.Info("end of file")
+				break
+			}
+			return size, err
+		}
+	}
+	return size, nil
 }
 
 func main() {
@@ -56,4 +81,9 @@ func main() {
 		}
 		fmt.Println(result)
 	}
+	fileSize, err := fileLen("file")
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(fileSize)
 }
