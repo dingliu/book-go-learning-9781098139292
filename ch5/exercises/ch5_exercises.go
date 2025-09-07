@@ -16,7 +16,7 @@ func sub(i, j int) (int, error) { return i - j, nil }
 func mul(i, j int) (int, error) { return i * j, nil }
 func div(i, j int) (int, error) {
 	if j == 0 {
-		return 0, errors.New("Division by zero")
+		return 0, errors.New("division by zero")
 	}
 	return i / j, nil
 }
