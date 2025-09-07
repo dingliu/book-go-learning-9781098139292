@@ -26,9 +26,19 @@ func addressAndDereferencingOperator() {
 	fmt.Println(y)
 }
 
+func pointerTypes() {
+	x := 10
+	var ptrX *int = &x
+	fmt.Println(*ptrX)
+}
+
 func main() {
 	slog.Info("first pointer function")
 	ptrFuncOne()
+
 	slog.Info("Address operator and dereferencing operator")
 	addressAndDereferencingOperator()
+
+	slog.Info("Pointer types")
+	pointerTypes()
 }
