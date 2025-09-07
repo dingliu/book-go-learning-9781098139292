@@ -1,8 +1,11 @@
 package main
 
 import (
+	"errors"
 	"fmt"
+	"io"
 	"log/slog"
+	"os"
 )
 
 func ptrFuncOne() {
@@ -55,6 +58,73 @@ func ptrPrimitiveLiteral() {
 	fmt.Println(*ptrX)
 }
 
+func makePtr[T any](t T) *T {
+	return &t
+}
+
+func useMakePtr() {
+	type person struct {
+		FirstName  string
+		MiddleName *string
+		LastName   string
+	}
+	p := person{
+		FirstName:  "Pat",
+		MiddleName: makePtr("Perry"),
+		LastName:   "Peterson",
+	}
+	fmt.Println(p) // {Pat 0xc000012110 Peterson}
+}
+
+func failToUpdateNilPtrParam() {
+	failedUpdate := func(g *int) {
+		x := 10
+		g = &x
+	}
+
+	var f *int // f is a nil pointer
+	failedUpdate(f)
+	fmt.Println(f) // prints nil
+}
+
+func mustDerefPtrParam() {
+	failedUpdate := func(ptrX *int) {
+		x2 := 20
+		ptrX = &x2
+	}
+	update := func(ptrX *int) {
+		*ptrX = 20
+	}
+
+	x := 10
+	failedUpdate(&x)
+	fmt.Println(x) // 10
+	update(&x)
+	fmt.Println(x) // 20
+}
+
+func readFileWithBuffer() error {
+	processData := func([]byte) {
+		// do something
+	}
+	filename := os.Args[0]
+	f, err := os.Open(filename)
+	if err != nil {
+		return err
+	}
+	data := make([]byte, 100)
+	for {
+		count, err := f.Read(data)
+		processData(data[:count])
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				return nil
+			}
+			return err
+		}
+	}
+}
+
 func main() {
 	slog.Info("first pointer function")
 	ptrFuncOne()
@@ -73,4 +143,13 @@ func main() {
 
 	slog.Info("Pointer of a string, primitive type")
 	ptrPrimitiveLiteral()
+
+	slog.Info("Use generic helper")
+	useMakePtr()
+
+	slog.Info("failed to update nil pointer")
+	failToUpdateNilPtrParam()
+
+	slog.Info("Must deferencing pointer to update value")
+	mustDerefPtrParam()
 }
