@@ -28,7 +28,7 @@ func addressAndDereferencingOperator() {
 
 func pointerTypes() {
 	x := 10
-	var ptrX *int = &x
+	var ptrX *int = &x // *int is the pointer type of ptrX
 	fmt.Println(*ptrX)
 }
 
